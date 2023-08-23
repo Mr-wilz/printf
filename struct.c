@@ -10,8 +10,8 @@ int (*fmt(char *str))(va_list)
 		{"c", p_char},
 		{"s", p_string},
 		{"%", p_percent},
-		{"d", p_int},
-		{"i", p_int},
+		{"d", print_int},
+		{"i", print_int},
 		{NULL, NULL}
 	};
 	int i = 0;

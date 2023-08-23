@@ -17,11 +17,13 @@ typedef struct convert
 	char *func;
 	int (*f)(va_list);
 } convert_t;
+
 int (*fmt(char *str))(va_list);
 int s_fmt(char *s, va_list aps);
 int _printf(const char *format, ...);
 int _putchar(char c);
-void print_int(va_list aps, int *count);
+int p_percent(va_list aps);
+int print_int(va_list aps);
 int p_char(va_list aps);
 int p_string(va_list aps);
 int p_non_spec(char *a, char *z);

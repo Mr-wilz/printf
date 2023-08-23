@@ -2,7 +2,6 @@
 /**
  * p_char - prints character
  * @aps: variable list
- * @count: counts character to be printed
  * Return: nothing
  */
 int p_char(va_list aps)
@@ -16,7 +15,6 @@ int p_char(va_list aps)
 /**
  * p_string - prints string
  * @aps: variable list
- * @count: string to be printed
  * Return: nothing
  */
 int p_string(va_list aps)
@@ -28,7 +26,7 @@ int p_string(va_list aps)
 	if (s == NULL)
 		s = "(null)";
 
-	for (i = 0; str[i] != '\0'; i++)
+	for (i = 0; s[i] != '\0'; i++)
 	{
 		count += _putchar(s[i]);
 	}
@@ -41,25 +39,33 @@ int p_string(va_list aps)
  */
 int p_percent(va_list aps)
 {
-	(void)aps ;
+	(void)aps;
 	return (_putchar('%'));
 }
 /**
  * print_int - prints an integer
  * @aps: variable list
- * @count: integer to be printed
  * Return: nothing
  */
-void print_int(va_list aps, int *count)
+int print_int(va_list aps)
 {
+	int i, count = 0;
 	int num = va_arg(aps, int);
 	int divisor = 1;
 
+	if (num == 0)
+		count += _putchar('0');
 	if (num < 0)
 	{
-		_putchar('-');
-		(*count)++;
+		count += _putchar('-');
 		num = -num;
+	}
+	if (num == INT_MIN)
+	{
+		char *min = "–2147483648";
+
+		for (i = 0; min[i] != '\0'; i++)
+			count += _putchar(min[i]);
 	}
 	while ((num / divisor) >= 10)
 	{
@@ -70,9 +76,10 @@ void print_int(va_list aps, int *count)
 		int digit = (num / divisor) % 10;
 
 		_putchar('0' + digit);
-		(*count)++;
+		count++;
 		divisor /= 10;
 	}
+	return (count);
 }
 /**
  * print_unsigned_num - prints an unsigned number
