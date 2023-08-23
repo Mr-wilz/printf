@@ -1,13 +1,16 @@
 #include "main.h"
+
 /**
- * _printf - produces output according to a format.
+ * _printf - produces output according to a format
  * @format: character string
  * @...: number of arguments
- * Return: number of characters printed
- * (excluding the null byte used to end output to strings)
+ * Return: printed characters
  */
+
 int _printf(const char *format, ...)
 {
+	int count = 0;
+
 	va_list aps;
 
 	va_start(aps, format);
@@ -19,29 +22,34 @@ int _printf(const char *format, ...)
 			format++;
 			switch (*format)
 			{
-			case 'c':
-				p_char(aps);
-				break;
-			case 's':
-				p_string(aps);
-				break;
-			case '%':
-				_putchar('%');
-				break;
-			case 'd':
-			case 'i':
-				print_num(aps);
-				break;
-			default:
-				_putchar('%');
-				_putchar(*format);
-				break;
+				case 'c':
+					p_char(aps, &count);
+					break;
+				case 's':
+					p_string(aps, &count);
+					break;
+				case 'd':
+				case 'i':
+					print_int(aps, &count);
+					break;
+				case '%':
+					_putchar('%');
+					count++;
+					break;
+				default:
+					_putchar('%');
+					_putchar (*format);
+					count += 2;
+					break;
 			}
 		}
 		else
-		_putchar(*format);
+		{
+			_putchar(*format);
+			count++;
+		}
 		format++;
 	}
 	va_end(aps);
-	return (*format);
+	return (count);
 }

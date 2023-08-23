@@ -1,72 +1,59 @@
 #include "main.h"
 
-int p_char(va_list aps)
+void p_char(va_list aps, int *count)
 {
-	char count;
-
-	count = va_arg(aps, int);
-	_putchar(count);
-	return (1);
+	int character = va_arg(aps, int);
+	_putchar(character);
+	(*count)++;
 }
 
-int p_string(va_list aps)
+void p_string(va_list aps, int *count)
 {
 	int i;
-	const char *s;
+	char *str = va_arg(aps, char *);
 
-	s = va_arg(aps, const char *);
-	if (s == NULL)
-		s = "(null)";
-
-	for (i = 0; s[i] != '\0'; i++)
-		_putchar(s[i]);
-	return (i);
-}
-
-int print_num(va_list aps)
-{
-	int n, check, len;
-	unsigned int num;
-
-	n = va_arg(aps, int);
-	check = 1;
-	len = 0;
-
-	if (n < 0)
+	for (i = 0; str[i] != '\0'; i++)
 	{
-		len += _putchar('-');
-		num = n * -1;
+		_putchar(str[i]);
+		(*count)++;
 	}
-	else
-		num = n;
-
-	for (; num / check > 9;)
-		check *= 10;
-	for (; check != 0;)
-	{
-		len += _putchar('0' + num / check);
-		num %= check;
-		check /= 10;
-	}
-	return (len);
+	
 }
 
-int p_int(va_list aps)
+void print_int(va_list aps, int *count)
 {
-	int n;
+	int num = va_arg(aps, int);
+	int divisor = 1;
 
-	n = print_num(aps);
-	return (n);
+	if (num < 0)
+	{
+		_putchar('-');
+		(*count)++;
+		num = -num;
+	}
+	while ((num / divisor) >= 10)
+	{
+		divisor *= 10;
+	}
+	while (divisor > 0)
+	{
+		int digit = (num / divisor) % 10;
+		_putchar('0' + digit);
+		(*count)++;
+		divisor /= 10;
+	}
 }
 
-int print_unsigned_num(unsigned int n)
+int print_unsigned_num(va_list aps, int *count)
 {
 	int check, len;
 	unsigned int num;
 
+	num = va_arg(aps, unsigned int);
+	_putchar(num);
+
 	check = 1;
 	len = 0;
-	num = n;
 
 	for (; num / check > 9;)
 		check *= 10;
@@ -76,5 +63,6 @@ int print_unsigned_num(unsigned int n)
 		num %= check;
 		check /= 10;
 	}
+	(*count)++;
 	return (len);
 }
