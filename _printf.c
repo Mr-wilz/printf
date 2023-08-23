@@ -12,46 +12,28 @@ int _printf(const char *format, ...)
 	int count = 0;
 
 	va_list aps;
+	char *ch, *var;
 
 	va_start(aps, format);
 
-	if (*format == NULL)
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
 		return (-1);
 
-	while (*format)
+	for (ch = (char *)format; *ch; ch++)
 	{
-		if (*format == '%')
+		if (*ch != '%')
 		{
-			format++;
-			switch (*format)
-			{
-				case 'c':
-					p_char(aps, &count);
-					break;
-				case 's':
-					p_string(aps, &count);
-					break;
-				case 'd':
-				case 'i':
-					print_int(aps, &count);
-					break;
-				case '%':
-					_putchar('%');
-					count++;
-					break;
-				default:
-					_putchar('%');
-					_putchar (*format);
-					count += 2;
-					break;
-			}
+			count += _putchar(*ch);
+			continue;
 		}
+		var = ch;
+		ch++;
+		if (fmt(ch))
+			count += s_fmt(ch, aps);
 		else
-		{
-			_putchar(*format);
-			count++;
-		}
-		format++;
+			count += p_non_spec(var, ch);
 	}
 	va_end(aps);
 	return (count);
