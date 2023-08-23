@@ -5,12 +5,13 @@
  * @count: counts character to be printed
  * Return: nothing
  */
-void p_char(va_list aps, int *count)
+int p_char(va_list aps)
 {
+	int count = 0;
 	int character = va_arg(aps, int);
 
-	_putchar(character);
-	(*count)++;
+	count += _putchar(character);
+	return (count);
 }
 /**
  * p_string - prints string
@@ -18,16 +19,30 @@ void p_char(va_list aps, int *count)
  * @count: string to be printed
  * Return: nothing
  */
-void p_string(va_list aps, int *count)
+int p_string(va_list aps)
 {
 	int i;
-	char *str = va_arg(aps, char *);
+	int count = 0;
+	char *s = va_arg(aps, char *);
+
+	if (s == NULL)
+		s = "(null)";
 
 	for (i = 0; str[i] != '\0'; i++)
 	{
-		_putchar(str[i]);
-		(*count)++;
+		count += _putchar(s[i]);
 	}
+	return (count);
+}
+/**
+ * p_percent - prints %
+ * @aps: variable list
+ * Return: nothing
+ */
+int p_percent(va_list aps)
+{
+	(void)aps ;
+	return (_putchar('%'));
 }
 /**
  * print_int - prints an integer
