@@ -49,7 +49,7 @@ int p_percent(va_list aps)
  */
 int print_int(va_list aps)
 {
-	int i, digit, divisor = 1, count = 0;
+	int i, divisor = 1, count = 0;
 	int num = va_arg(aps, int);
 
 	if (num == 0)
