@@ -79,31 +79,3 @@ int print_int(va_list aps)
 	}
 	return (count);
 }
-/**
- * print_unsigned_num - prints an unsigned number
- * @aps: variable list
- * @count: integer to be printed
- * Return: length of integer
- */
-int print_unsigned_num(va_list aps, int *count)
-{
-	int check, len;
-	unsigned int num;
-
-	num = va_arg(aps, unsigned int);
-	_putchar(num);
-
-	check = 1;
-	len = 0;
-
-	for (; num / check > 9;)
-		check *= 10;
-	for (; check != 0;)
-	{
-		len += _putchar('0' + num / check);
-		num %= check;
-		check /= 10;
-	}
-	(*count)++;
-	return (len);
-}

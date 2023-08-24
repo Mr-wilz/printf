@@ -37,6 +37,6 @@ int s_fmt(char *s, va_list aps)
 	int (*f)(va_list) = fmt(s);
 
 	if (f)
-		return ((f(aps)));
+		return (f(aps));
 	return (-1);
 }

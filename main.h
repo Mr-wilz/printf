@@ -27,6 +27,5 @@ int print_int(va_list aps);
 int p_char(va_list aps);
 int p_string(va_list aps);
 int p_non_spec(char *a, char *z);
-int print_unsigned_num(va_list aps, int *count);
 
 #endif
