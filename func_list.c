@@ -53,26 +53,31 @@ int print_int(va_list aps)
 	int num = va_arg(aps, int);
 
 	if (num == 0)
-		count += _putchar('0');
-	if (num < 0)
-	{
-		count += _putchar('-');
-		num = -num;
-	}
+		_putchar('0');
+		count++;
+		return (count);
+
 	if (num == INT_MIN)
 	{
 		char *min = "–2147483648";
 
 		for (i = 0; min[i] != '\0'; i++)
 			count += _putchar(min[i]);
+
+		return (count);
+
+	if (num < 0)
+	{
+		_putchar('-');
+		num = -num;
+		count++;
 	}
 	while ((num / divisor) >= 10)
-	{
 		divisor *= 10;
-	}
+
 	while (divisor != 0)
 	{
-		_putchar('0' + num / divisor);
+		_putchar('0' + (num / divisor));
 		num %= divisor;
 		divisor /= 10;
 		count++;
