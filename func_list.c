@@ -53,10 +53,11 @@ int print_int(va_list aps)
 	int num = va_arg(aps, int);
 
 	if (num == 0)
+	{
 		_putchar('0');
 		count++;
 		return (count);
-
+	}
 	if (num == INT_MIN)
 	{
 		char *min = "–2147483648";
@@ -65,7 +66,7 @@ int print_int(va_list aps)
 			count += _putchar(min[i]);
 
 		return (count);
-
+	}
 	if (num < 0)
 	{
 		_putchar('-');
