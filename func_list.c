@@ -49,9 +49,8 @@ int p_percent(va_list aps)
  */
 int print_int(va_list aps)
 {
-	int i, count = 0;
+	int i, digit, divisor = 1, count = 0;
 	int num = va_arg(aps, int);
-	int divisor = 1;
 
 	if (num == 0)
 		count += _putchar('0');
@@ -71,13 +70,19 @@ int print_int(va_list aps)
 	{
 		divisor *= 10;
 	}
-	while (divisor > 0)
+	while (divisor != 0)
 	{
-		int digit = (num / divisor) % 10;
-
-		_putchar('0' + digit);
-		count++;
-		divisor /= 10;
+		int print_digit(int n)
+		{
+			if (num / divisor)
+			{
+				digit = num % divisor;
+				print_digit(num / divisor)
+			}
+			_putchar('0' + digit);
+			count++;
+		}
+		divisor = 0;
 	}
 	return (count);
 }
