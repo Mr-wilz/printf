@@ -72,17 +72,10 @@ int print_int(va_list aps)
 	}
 	while (divisor != 0)
 	{
-		int print_digit(int n)
-		{
-			if (num / divisor)
-			{
-				digit = num % divisor;
-				print_digit(num / divisor)
-			}
-			_putchar('0' + digit);
-			count++;
-		}
-		divisor = 0;
+		_putchar('0' + num / divisor);
+		num %= divisor;
+		divisor /= 10;
+		count++;
 	}
 	return (count);
 }
